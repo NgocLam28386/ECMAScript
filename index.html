@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product List</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <div id="product-list"></div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        fetch("http://localhost:3000/products")
+          .then((response) => response.json())
+          .then((products) => {
+            const productList = document.getElementById("product-list");
+            productList.innerHTML = products
+              .map(
+                (product) => `
+                      <div className="col-4">
+                        <div class="product ">
+                            <h2>${product.id}</h2>
+                            <p>${product.price}</p>
+                            <img src="${product.thumbnail}" alt="" >  
+                            <p>${product.title}</p>
+                            <p>${product.description}</p>
+                            <button>Mua hàng</button>
+                        </div>
+                      </div>  
+                    `
+              )
+              .join("");
+          })
+          .catch((error) =>
+            console.error("Error fetching the products:", error)
+          );
+      });
+    </script>
+  </body>
+</html>
