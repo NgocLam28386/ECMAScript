@@ -1,6 +1,7 @@
+import React from "react";
 
-const Footer = () => {
-  return <footer>copyright by Ngọc Lâm</footer>;
+const Footer = () =>  {
+  return <footer>Footer</footer>
 };
 
 export default Footer;

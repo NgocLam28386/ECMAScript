@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-
 export default function Header() {
   return (
     <header>
@@ -13,7 +12,10 @@ export default function Header() {
         <li>
           <Link to="/login">Login</Link>
         </li>
+        <li>
+          <Link to="/admin">Admin</Link>
+        </li>
       </ul>
     </header>
-  );
+  )
 }

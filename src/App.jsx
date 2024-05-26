@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
@@ -7,29 +8,41 @@ import AboutPage from "./pages/AboutPage";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import Dashboard from "./pages/admin/Dashboard";
+import ProductDetail from "./pages/ProductDetail";
+import api from "./axios";
+
+// ! Props = properties
 
 export default function App() {
 	const [products, setProducts] = useState([]);
 	useEffect(() => {
-		fetch("http://localhost:3000/products")
-			.then((res) => res.json())
-			.then((data) => {
+		(async () => {
+			try {
+				const { data } = await api.get("/products");
 				setProducts(data);
-			});
+			} catch (error) {
+				console.error("Error fetching data:", error);
+			}
+		})();
 	}, []);
-	return (
-		<>
-			<Header />
-			<main className="container">
-				<Routes>
-					<Route path="/" element={<HomePage data={products} />} />
-					<Route path="/home" element={<Navigate to="/" />} />
-					<Route path="/about" element={<AboutPage />} />
-					<Route path="/login" element={<LoginPage />} />
-					<Route path="*" element={<NotFoundPage />} />
-				</Routes>
-			</main>
-			<Footer />
-		</>
-	);
+
+  return (
+    <>
+      <Header />
+      <main className="container">
+      <Routes>
+        <Route path="/" element={<HomePage data={products} />} />
+          <Route path="/home" element={<Navigate to="/" />} />
+          <Route path="/product-detail/:id" element={<ProductDetail />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/loginPage" element={<LoginPage />} /> 
+          <Route path="/admin" element={<Dashboard data={products}/>} />
+          <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+      </main>
+     
+      <Footer />
+    </>
+  );
 }
