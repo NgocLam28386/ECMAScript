@@ -7,11 +7,10 @@ import AboutPage from "./pages/AboutPage";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import api from "./axios";
 import Dashboard from "./pages/admin/Dashboard";
 import ProductDetail from "./pages/ProductDetail";
-import api from "./axios";
-
-// ! Props = properties
+import ProductAdd from "./pages/admin/ProductAdd";
 
 export default function App() {
 	const [products, setProducts] = useState([]);
@@ -25,23 +24,22 @@ export default function App() {
 			}
 		})();
 	}, []);
-
-  return (
-    <>
-      <Header />
-      <main className="container">
-      <Routes>
-        <Route path="/" element={<HomePage data={products} />} />
-          <Route path="/home" element={<Navigate to="/" />} />
-          <Route path="/product-detail/:id" element={<ProductDetail />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/loginPage" element={<LoginPage />} /> 
-          <Route path="/admin" element={<Dashboard data={products}/>} />
-          <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-      </main>
-     
-      <Footer />
-    </>
-  );
+	return (
+		<>
+			<Header />
+			<main className="container">
+				<Routes>
+					<Route path="/" element={<HomePage data={products} />} />
+					<Route path="/home" element={<Navigate to="/" />} />
+					<Route path="/product-detail/:id" element={<ProductDetail />} />
+					<Route path="/about" element={<AboutPage />} />
+					<Route path="/login" element={<LoginPage />} />
+					<Route path="/admin" element={<Dashboard data={products} />} />
+					<Route path="/admin/product-add" element={<ProductAdd />} />
+					<Route path="*" element={<NotFoundPage />} />
+				</Routes>
+			</main>
+			<Footer />
+		</>
+	);
 }
