@@ -28,4 +28,4 @@ const HomePage = ({ data }) => {
 };
 
 
-export default HomePage
+export default HomePage;
