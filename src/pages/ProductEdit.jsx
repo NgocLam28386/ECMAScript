@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import * as z from "zod";
-import api from "../../axios";
+import api from "../axios";
 
 const schemaProduct = z.object({
 	title: z.string().min(3, { message: "Tên phải có ít nhất 3 ký tự" }),
@@ -27,12 +27,9 @@ const ProductEdit = ({ onEdit }) => {
 			reset(data);
 		})();
 	}, []);
-	const onSubmit = (data) => {
-		onEdit({ ...data, id });
-	};
 	return (
 		<div>
-			<form onSubmit={handleSubmit(onSubmit)}>
+			<form onSubmit={handleSubmit((data) => onEdit({ ...data, id }))}>
 				<h1>Edit product</h1>
 				<div className="form-group mb-3">
 					<label className="form-label" htmlFor="title">
